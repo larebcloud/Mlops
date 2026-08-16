@@ -41,7 +41,7 @@ class DataTransformation:
             num_pipeline=Pipeline(
                 steps=[
                     ("imputer", SimpleImputer(strategy="median")),
-                    ("scaler", StandardScaler())
+                    ("scaler", StandardScaler(with_mean=False))
                 ]
             )
 
@@ -49,10 +49,10 @@ class DataTransformation:
                 steps=[
                     ("imputer", SimpleImputer(strategy="most_frequent")),
                     ("one_hot_encoder",OneHotEncoder()),
-                    ("standard_scaling",StandardScaler())
+                    ("standard_scaling",StandardScaler(with_mean=False))
                 ]
             )
-
+ 
             logging.info(f"Categorical columns completed : {categorical_columns}")
             logging.info(f"Numerical columns : {numerical_columns}")
 
@@ -89,7 +89,7 @@ class DataTransformation:
 
             input_feature_train_df=train_df.drop([target_column_name],axis=1)
             target_feature_train_df=train_df[target_column_name]
-
+ 
             input_feature_test_df=test_df.drop([target_column_name],axis=1)
             target_feature_test_df=test_df[target_column_name]
 
